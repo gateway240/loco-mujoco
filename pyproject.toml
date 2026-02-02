@@ -4,23 +4,23 @@ requires = ["setuptools", "wheel", "wget"]
 [project]
 name = "loco-mujoco"
 dependencies = [
-    "numpy<2.0",
-    "scipy>=1.14.0",
-    "mujoco==3.2.7",    # todo: MjSpec API changed in 3.3.0, check why find functions are not supported anymore (no info in Mujoco changelog given)
-    "mujoco-mjx==3.2.7",
-    "hydra-core",
-    "jax",
-    "flax",
-    "orbax",
-    "distrax",
-    "metrx",
-    "gymnasium",
-    "pyyaml",
-    "opencv-python",
-    "wget",
-    "gitpython",
-    "datasets",
-    "huggingface_hub"]
+    "numpy>=0.2.4.2,<2.5.0",
+    "scipy>=1.17.0,<1.28.0",
+    "mujoco>=3.4.0,<3.5.0",    # todo: MjSpec API changed in 3.3.0, check why find functions are not supported anymore (no info in Mujoco changelog given)
+    "mujoco-mjx>=3.4.0,<3.5.0",
+    "hydra-core>=1.3.2,<1.4.0",
+    "jax>=0.9.0,<0.10.0",
+    "flax>=0.12.3,<0.13.0",
+    "orbax>=0.1.9,<0.2.0",
+    "distrax>=0.1.7,<0.2.0",
+    "metrx>=0.1.0,<0.2.0",
+    "gymnasium>=1.2.3,<1.3.0",
+    "pyyaml>=6.0.3,<6.1.0",
+    "opencv-python>=4.13.0.90,<4.14.0.0",
+    "wget>=3.2,<3.3",
+    "gitpython>=3.1.46,<3.2.0",
+    "datasets>=4.5.0,<4.6.0",
+    "huggingface_hub>=1.3.5,<1.4.0"]
 
 requires-python = ">=3.10"
 authors = [{name="Firas Al-Hafez", email="fi.alhafez@gmail.com"}]
