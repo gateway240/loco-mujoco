@@ -122,8 +122,10 @@ class RoughTerrain(DynamicTerrain):
         Returns:
             MjSpec: The modified simulation specification.
         """
-        file_name = Path(__file__).resolve().parent.parent.parent / "models" / "common" / "default_hfield_80.png"
-        spec.add_hfield(name='rough_terrain', size=self.hfield_size, file=str(file_name))
+        from loco_mujoco.core.mujoco_base import Mujoco
+
+        file_name = Mujoco.get_model_path("common", "default_hfield_80.png")
+        spec.add_hfield(name='rough_terrain', size=self.hfield_size, file=file_name)
         for i, field in enumerate(spec.hfields):
             if field.name == 'rough_terrain':
                 self.hfield_id = i
