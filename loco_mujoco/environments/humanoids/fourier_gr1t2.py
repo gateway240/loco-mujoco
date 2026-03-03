@@ -417,7 +417,7 @@ class FourierGR1T2(BaseRobotHumanoid):
         Returns:
             str: Path to the default XML file.
         """
-        return cls.get_model_path("fourier_gr1t3", "gr1t2.xml")
+        return cls.get_model_path("fourier_gr1t2", "gr1t2.xml")
 
     @info_property
     def root_body_name(self) -> str:
