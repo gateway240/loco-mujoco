@@ -23,6 +23,7 @@ from loco_mujoco.core.terrain import Terrain
 from loco_mujoco.core.initial_state_handler import InitialStateHandler
 from loco_mujoco.core.terminal_state_handler.base import TerminalStateHandler
 from loco_mujoco.core.visuals import MjvScene, MujocoViewer
+from importlib.resources import files
 from loco_mujoco.core.utils.mujoco import mj_jntid2qposid, mj_jntid2qvelid
 
 
@@ -76,6 +77,13 @@ class Mujoco:
         """
 
     registered_envs = dict()
+
+    @staticmethod
+    def get_model_path(*relative_parts: str) -> str:
+        """
+        Return absolute path to a model file inside loco-mujoco-models.
+        """
+        return str(files("loco_mujoco_models").joinpath(*relative_parts))
 
     def __init__(self,
                  spec: Union[MjSpec, str],

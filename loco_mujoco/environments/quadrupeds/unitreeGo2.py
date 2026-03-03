@@ -240,7 +240,7 @@ class UnitreeGo2(BaseRobotQuadruped):
         Returns:
             str: The default path to the xml file.
         """
-        return (loco_mujoco.PATH_TO_MODELS / "unitree_go2" / "go2.xml").as_posix()
+        return cls.get_model_path("unitree_go2", "go2.xml")
 
     @info_property
     def grf_size(self) -> int:

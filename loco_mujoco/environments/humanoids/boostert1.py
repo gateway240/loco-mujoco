@@ -320,7 +320,7 @@ class BoosterT1(BaseRobotHumanoid):
         Returns the default path to the xml file of the environment.
 
         """
-        return (loco_mujoco.PATH_TO_MODELS / "booster_t1" / "booster_t1.xml").as_posix()
+        return cls.get_model_path("booster_t1", "booster_t1.xml")
 
     @info_property
     def p_gains(self) -> Union[float, List[float]]:

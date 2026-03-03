@@ -247,7 +247,7 @@ class SkeletonTorque(BaseSkeleton):
         """
         Returns the default path to the xml file of the environment.
         """
-        return (loco_mujoco.PATH_TO_MODELS / "skeleton" / "skeleton_torque.xml").as_posix()
+        return cls.get_model_path("skeleton", "skeleton_torque.xml")
 
 
 class MjxSkeletonTorque(SkeletonTorque):
@@ -700,7 +700,7 @@ class SkeletonMuscle(BaseSkeleton):
         """
         Returns the default path to the xml file of the environment.
         """
-        return (loco_mujoco.PATH_TO_MODELS / "skeleton" / "skeleton_muscle.xml").as_posix()
+        return cls.get_model_path("skeleton", "skeleton_muscle.xml")
 
 
 class MjxSkeletonMuscle(SkeletonMuscle):

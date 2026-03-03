@@ -6,7 +6,7 @@ from mujoco import MjSpec
 from loco_mujoco.core import ObservationType, Observation
 from loco_mujoco.environments import LocoEnv
 from loco_mujoco.core.utils import info_property
-from loco_mujoco import PATH_TO_MODELS
+from loco_mujoco import PATH_TO_CUSTOM_MODELS
 
 
 class MyoSkeleton(LocoEnv):
@@ -479,7 +479,7 @@ class MyoSkeleton(LocoEnv):
                 l.delete()
 
         # load common specs
-        scene_spec = mujoco.MjSpec.from_file((PATH_TO_MODELS / "common" / "scene.xml").as_posix())
+        scene_spec = mujoco.MjSpec.from_file(self.get_model_path("common", "scene.xml"))
 
         # add all textures, materials, geoms and lights
         for t in scene_spec.textures:
@@ -642,7 +642,7 @@ class MyoSkeleton(LocoEnv):
         Returns the default path to the xml file of the environment.
 
         """
-        return (PATH_TO_MODELS / "myo_model" / "myoskeleton" / "myoskeleton.xml").as_posix()
+        return (PATH_TO_CUSTOM_MODELS / "myo_model" / "myoskeleton" / "myoskeleton.xml").as_posix()
 
     @info_property
     def upper_body_xml_name(self) -> str:

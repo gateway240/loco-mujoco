@@ -242,7 +242,7 @@ class AnymalC(BaseRobotQuadruped):
         Returns:
             str: The default path to the xml file.
         """
-        return (loco_mujoco.PATH_TO_MODELS / "anybotics_anymal_c" / "anymal_c.xml").as_posix()
+        return cls.get_model_path("anybotics_anymal_c", "anymal_c.xml")
 
     @info_property
     def grf_size(self) -> int:

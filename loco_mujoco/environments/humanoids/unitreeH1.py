@@ -345,7 +345,7 @@ class UnitreeH1(BaseRobotHumanoid):
         """
         Returns the default XML file path for the Unitree H1 environment.
         """
-        return (loco_mujoco.PATH_TO_MODELS / "unitree_h1" / "h1.xml").as_posix()
+        return cls.get_model_path("unitree_h1", "h1.xml")
 
     @info_property
     def upper_body_xml_name(self) -> str:

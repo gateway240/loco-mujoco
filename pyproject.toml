@@ -20,7 +20,8 @@ dependencies = [
     "wget",
     "gitpython",
     "datasets",
-    "huggingface_hub"]
+    "huggingface_hub",
+    "loco-mujoco-models @ git+https://github.com/robfiras/loco-mujoco-models.git"]
 
 requires-python = ">=3.10"
 authors = [{name="Firas Al-Hafez", email="fi.alhafez@gmail.com"}]
@@ -45,7 +46,7 @@ smpl = [
     "torch",
     "tqdm",
     "smplx @ git+https://github.com/ZhengyiLuo/smplx",
-    "joblib"
+    "joblib",
 ]
 
 [project.urls]

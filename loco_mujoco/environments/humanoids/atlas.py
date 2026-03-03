@@ -400,7 +400,7 @@ class Atlas(BaseRobotHumanoid):
         """
         Returns the default path to the xml file of the environment.
         """
-        return (loco_mujoco.PATH_TO_MODELS / "atlas" / "atlas.xml").as_posix()
+        return cls.get_model_path("atlas", "atlas.xml")
 
     @info_property
     def upper_body_xml_name(self) -> str:

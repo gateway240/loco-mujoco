@@ -237,9 +237,9 @@ class UnitreeA1(BaseRobotQuadruped):
     def get_default_xml_file_path(cls) -> str:
         """
         Returns the default path to the xml file of the environment.
-
+        
         """
-        return (loco_mujoco.PATH_TO_MODELS / "unitree_a1" / "unitree_a1.xml").as_posix()
+        return cls.get_model_path("unitree_a1", "unitree_a1.xml")
 
     @info_property
     def grf_size(self) -> int:

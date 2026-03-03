@@ -251,7 +251,7 @@ class BDSpot(BaseRobotQuadruped):
         Returns:
             str: The default path to the xml file.
         """
-        return (loco_mujoco.PATH_TO_MODELS / "bd_spot" / "spot.xml").as_posix()
+        return cls.get_model_path("bd_spot", "spot.xml")
 
     @info_property
     def grf_size(self) -> int:

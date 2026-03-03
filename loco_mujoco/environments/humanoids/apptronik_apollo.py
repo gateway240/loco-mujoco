@@ -397,7 +397,7 @@ class Apollo(BaseRobotHumanoid):
         Returns the default path to the xml file of the environment.
 
         """
-        return (loco_mujoco.PATH_TO_MODELS / "apptronik_apollo" / "apptronik_apollo.xml").as_posix()
+        return cls.get_model_path("apptronik_apollo", "apptronik_apollo.xml")
 
     @info_property
     def p_gains(self) -> Union[float, List[float]]:

@@ -320,7 +320,7 @@ class Talos(BaseRobotHumanoid):
         Returns:
             str: Path to the default XML file.
         """
-        return (loco_mujoco.PATH_TO_MODELS / "talos" / "talos.xml").as_posix()
+        return cls.get_model_path("talos", "talos.xml")
 
     @staticmethod
     def _get_observation_specification(spec: MjSpec) -> List[Observation]:

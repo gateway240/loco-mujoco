@@ -444,7 +444,7 @@ class ToddlerBot(BaseRobotHumanoid):
         """
         Returns the default XML file path for the ToddlerBot environment.
         """
-        return (loco_mujoco.PATH_TO_MODELS / "toddlerbot" / "toddlerbot.xml").as_posix()
+        return cls.get_model_path("toddlerbot", "toddlerbot.xml")
 
     @info_property
     def root_body_name(self) -> str:
