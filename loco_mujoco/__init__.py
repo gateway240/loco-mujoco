@@ -41,7 +41,10 @@ try:
         return LocoEnv.registered_envs
 
     def get_variable(key):
-        return yaml.load(open(PATH_TO_VARIABLES), Loader=yaml.FullLoader)[key]
+        try:
+            return yaml.load(open(PATH_TO_VARIABLES), Loader=yaml.FullLoader)[key]
+        except KeyError:
+            return None
 
 except ImportError as e:
     print(e)

@@ -148,8 +148,10 @@ def load_robot_conf_file(env_name: str):
     filename = f"{conf_name}.yaml"
     filepaths = [os.path.join(PATH_TO_SMPL_ROBOT_CONF, filename)]
     custom_smpl_robot_confs = loco_mujoco.get_variable("LOCOMUJOCO_CUSTOM_SMPL_CONF_PATH")
-    custom_smpl_robot_confs = [custom_smpl_robot_confs] if isinstance(custom_smpl_robot_confs, str)\
-        else custom_smpl_robot_confs
+    custom_smpl_robot_confs = (
+        [custom_smpl_robot_confs] if isinstance(custom_smpl_robot_confs, str)
+        else (custom_smpl_robot_confs or [])
+    )
     filepaths += [os.path.join(p, filename) for p in custom_smpl_robot_confs]
     for filepath in filepaths:
         if not os.path.exists(filepath):
