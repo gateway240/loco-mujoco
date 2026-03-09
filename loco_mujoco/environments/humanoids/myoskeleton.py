@@ -471,12 +471,12 @@ class MyoSkeleton(LocoEnv):
         # remove floor and add ground plane
         for g in spec.geoms:
             if g.name == "floor":
-                g.delete()
+                spec.delete(g)
 
         # remove old lights
         for b in spec.bodies:
             for l in b.lights:
-                l.delete()
+                spec.delete(l)
 
         # load common specs
         scene_spec = mujoco.MjSpec.from_file(self.get_model_path("common", "scene.xml"))
@@ -510,7 +510,7 @@ class MyoSkeleton(LocoEnv):
         if self._disable_fingers:
             for j in spec.joints:
                 if "finger" in self.finger_and_hand_joints:
-                    j.delete()
+                    spec.delete(j)
 
         # add actuators
         spec = self._add_actuators(spec)

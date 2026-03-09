@@ -133,7 +133,7 @@ class RoughTerrain(DynamicTerrain):
 
         for g in spec.geoms:
             if g.name == 'floor':
-                g.delete()
+                spec.delete(g)
                 break
 
         wb = spec.worldbody

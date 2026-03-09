@@ -894,12 +894,12 @@ class LocoEnv(Mjx):
 
         for joint in spec.joints:
             if joint.name in joints_to_remove:
-                joint.delete()
+                spec.delete(joint)
         for actuator in spec.actuators:
             if actuator.name in actuators_to_remove:
-                actuator.delete()
+                spec.delete(actuator)
         for equality in spec.equalities:
             if equality.name in equ_constraints_to_remove:
-                equality.delete()
+                spec.delete(equality)
 
         return spec

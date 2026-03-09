@@ -36,7 +36,7 @@ class MjxUnitreeH1(UnitreeH1):
         # remove original foot meshes
         for g in spec.geoms:
             if g.name in ["right_foot", "left_foot"]:
-                g.delete()
+                spec.delete(g)
 
         # --- 2. Make all geoms have contype and conaffinity of 0 ---
         for g in spec.geoms:
