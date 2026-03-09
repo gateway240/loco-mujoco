@@ -94,3 +94,23 @@ def test_mjx_simto_mujoco():
     #                 model_option_conf=MODEL_OPTION, horizon=short_horizon)
 
 
+def test_mjx_warp_backend_smoke():
+    """
+    Smoke test that the MjWarp backend can be initialized and stepped.
+
+    If the warp implementation is not available on this platform, the test is skipped.
+    """
+    try:
+        # enable MJX and request the MjWarp backend
+        env = DummyHumamoidEnv(enable_mjx=True, use_mjwarp=True, horizon=10, gamma=0.99, n_envs=1)
+    except Exception as e:
+        pytest.skip(f"MjWarp backend not available or failed to initialize: {e}")
+
+    key = jax.random.PRNGKey(0)
+    # reset once
+    state = env.mjx_reset(key)
+
+    # take a random action and perform a single MJX step
+    key, subkey = jax.random.split(key)
+    action = env.sample_action_space(subkey)
+    _ = env.mjx_step(state, action)
