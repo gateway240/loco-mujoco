@@ -452,15 +452,18 @@ def mock_random(monkeypatch):
     monkeypatch.setattr(
         nr,
         "normal",
-        lambda loc=0.0, scale=1.0, size=None: np.full(size, loc + 0.5 * scale),
+        lambda loc=0.0, scale=1.0, size=None: np.full(
+            size if size is not None else (), loc + 0.5 * scale
+        ),
     )
     monkeypatch.setattr(
         nr,
         "uniform",
-        lambda low=0.0, high=1.0, size=None: np.full(size 
-                                                     if np.isscalar(low) and np.isscalar(high) 
-                                                     else np.broadcast(low, high).size, 
-                                                     np.asarray(low) + (np.asarray(high) - np.asarray(low)) * 0.3),
+        lambda low=0.0, high=1.0, size=None: np.full(
+            (size if size is not None else ()) if (np.isscalar(low) and np.isscalar(high))
+            else np.broadcast(low, high).size,
+            np.asarray(low) + (np.asarray(high) - np.asarray(low)) * 0.3,
+        ),
     )
     monkeypatch.setattr(
         nr,

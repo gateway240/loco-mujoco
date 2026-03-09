@@ -41,10 +41,10 @@ class MjxUnitreeH1v2(UnitreeH1v2):
         foot_attr = dict(type=mujoco.mjtGeom.mjGEOM_BOX, pos=[0.04, 0.0, -0.02],
                          size=[0.12, 0.04, 0.025], rgba=[1.0, 1.0, 1.0, 0.2], contype=0, conaffinity=0)
 
-        r_foot_b = spec.find_body("right_ankle_roll_link")
+        r_foot_b = [body for body in spec.bodies if body.name == "right_ankle_roll_link"][0]
         r_foot_b.add_geom(name="right_foot1", **foot_attr)
 
-        l_foot_b = spec.find_body("left_ankle_roll_link")
+        l_foot_b = [body for body in spec.bodies if body.name == "left_ankle_roll_link"][0]
         l_foot_b.add_geom(name="left_foot1", **foot_attr)
 
         # --- 3. Define specific contact pairs ---

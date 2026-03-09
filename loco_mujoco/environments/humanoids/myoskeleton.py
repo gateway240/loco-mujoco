@@ -464,9 +464,16 @@ class MyoSkeleton(LocoEnv):
 
         """
 
-        def get_attributes(obj):
-            return {attr: getattr(obj, attr) for attr in dir(obj)
-                    if not callable(getattr(obj, attr)) and not attr.startswith("__") and not attr == "alt"}
+        def _copy_attributes(src, dst, skip=None):
+            skip = set(skip or [])
+            skip |= {"element", "alt"}
+            for attr in dir(src):
+                if attr.startswith("__") or attr in skip or callable(getattr(src, attr)):
+                    continue
+                try:
+                    setattr(dst, attr, getattr(src, attr))
+                except (TypeError, AttributeError):
+                    pass
 
         # remove floor and add ground plane
         for g in spec.geoms:
@@ -481,22 +488,26 @@ class MyoSkeleton(LocoEnv):
         # load common specs
         scene_spec = mujoco.MjSpec.from_file(self.get_model_path("common", "scene.xml"))
 
-        # add all textures, materials, geoms and lights
+        # add all textures, materials, geoms and lights (add then copy attributes)
         for t in scene_spec.textures:
-            spec.add_texture(**get_attributes(t))
+            new_t = spec.add_texture()
+            _copy_attributes(t, new_t)
         for m in scene_spec.materials:
-            spec.add_material(**get_attributes(m))
+            new_m = spec.add_material()
+            _copy_attributes(m, new_m)
         for g in scene_spec.geoms:
-            spec.worldbody.add_geom(**get_attributes(g))
+            new_g = spec.worldbody.add_geom()
+            _copy_attributes(g, new_g)
         for l in scene_spec.lights:
-            spec.worldbody.add_light(**get_attributes(l))
+            new_l = spec.worldbody.add_light()
+            _copy_attributes(l, new_l)
 
         # use default scene visuals
         spec.visual = scene_spec.visual
 
         # add mimic sites
         for body_name, site_name in self.body2sites_for_mimic.items():
-            b = spec.find_body(body_name)
+            b = [body for body in spec.bodies if body.name == body_name][0]
             pos = [0.0, 0.0, 0.0]
             # todo: can not load mimic sites attributes for now, so I add them manually
             b.add_site(name=site_name, group=4, type=mujoco.mjtGeom.mjGEOM_BOX, size=[0.075, 0.05, 0.025],

@@ -231,12 +231,12 @@ class BaseSkeleton(LocoEnv):
         """
 
         # find foot and attach box
-        toe_l = spec.find_body("toes_l")
+        toe_l = [body for body in spec.bodies if body.name == "toes_l"][0]
         size = np.array([0.112, 0.03, 0.05]) * self.scaling
         pos = np.array([-0.09, 0.019, 0.0]) * self.scaling
         toe_l.add_geom(name="foot_box_l", type=mujoco.mjtGeom.mjGEOM_BOX, size=size, pos=pos,
                        rgba=[0.5, 0.5, 0.5, alpha_box_feet], euler=[0.0, 0.15, 0.0])
-        toe_r = spec.find_body("toes_r")
+        toe_r = [body for body in spec.bodies if body.name == "toes_r"][0]
         toe_r.add_geom(name="foot_box_r", type=mujoco.mjtGeom.mjGEOM_BOX, size=size, pos=pos,
                        rgba=[0.5, 0.5, 0.5, alpha_box_feet], euler=[0.0, -0.15, 0.0])
 
@@ -261,13 +261,13 @@ class BaseSkeleton(LocoEnv):
             Modified Mujoco specification.
         """
 
-        h = spec.find_body("humerus_l")
+        h = [body for body in spec.bodies if body.name == "humerus_l"][0]
         h.quat = [1.0, -0.1, -1.0, -0.1]
-        h = spec.find_body("ulna_l")
+        h = [body for body in spec.bodies if body.name == "ulna_l"][0]
         h.quat = [1.0, 0.6, 0.0, 0.0]
-        h = spec.find_body("humerus_r")
+        h = [body for body in spec.bodies if body.name == "humerus_r"][0]
         h.quat = [1.0, 0.1, 1.0, -0.1]
-        h = spec.find_body("ulna_r")
+        h = [body for body in spec.bodies if body.name == "ulna_r"][0]
         h.quat = [1.0, -0.6, 0.0, 0.0]
 
         return spec

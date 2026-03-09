@@ -255,10 +255,11 @@ class UnitreeG1(BaseRobotHumanoid):
                                  "right_elbow_pitch_joint", "right_elbow_roll_joint",
                                  "left_shoulder_pitch_joint", "left_shoulder_roll_joint", "left_shoulder_yaw_joint",
                                  "left_elbow_pitch_joint", "left_elbow_roll_joint"]
-            motors_to_remove += ["right_shoulder_pitch_joint", "right_shoulder_roll_joint", "right_shoulder_yaw_joint",
-                                 "right_elbow_pitch_joint", "right_elbow_roll_joint",
-                                 "left_shoulder_pitch_joint", "left_shoulder_roll_joint", "left_shoulder_yaw_joint",
-                                 "left_elbow_pitch_joint", "left_elbow_roll_joint"]
+            # actuators are named without the \"_joint\" suffix in the XML
+            motors_to_remove += ["right_shoulder_pitch", "right_shoulder_roll", "right_shoulder_yaw",
+                                 "right_elbow_pitch", "right_elbow_roll",
+                                 "left_shoulder_pitch", "left_shoulder_roll", "left_shoulder_yaw",
+                                 "left_elbow_pitch", "left_elbow_roll"]
 
         if self._disable_back_joint:
             joints_to_remove += ["torso_joint"]
@@ -357,13 +358,13 @@ class UnitreeG1(BaseRobotHumanoid):
             MjSpec: Modified Mujoco specification.
         """
         # modify the arm orientation
-        left_shoulder_pitch_link = spec.find_body("left_shoulder_pitch_link")
+        left_shoulder_pitch_link = [body for body in spec.bodies if body.name == "left_shoulder_pitch_link"][0]
         left_shoulder_pitch_link.quat = [1.0, 0.25, 0.1, 0.0]
-        right_elbow_link = spec.find_body("right_elbow_pitch_link")
+        right_elbow_link = [body for body in spec.bodies if body.name == "right_elbow_link"][0]
         right_elbow_link.quat = [1.0, 0.0, 0.25, 0.0]
-        right_shoulder_pitch_link = spec.find_body("right_shoulder_pitch_link")
+        right_shoulder_pitch_link = [body for body in spec.bodies if body.name == "right_shoulder_pitch_link"][0]
         right_shoulder_pitch_link.quat = [1.0, -0.25, 0.1, 0.0]
-        left_elbow_link = spec.find_body("left_elbow_pitch_link")
+        left_elbow_link = [body for body in spec.bodies if body.name == "left_elbow_link"][0]
         left_elbow_link.quat = [1.0, 0.0, 0.25, 0.0]
 
         return spec
