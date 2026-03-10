@@ -12,6 +12,8 @@ build:
     python: "3.11"
   jobs:
     post_checkout:
+      - apt-get install -y git-lfs
+      - git lfs install
       - git lfs pull
     # You can also specify other tool versions:
     # nodejs: "19"
