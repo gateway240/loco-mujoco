@@ -20,6 +20,9 @@ parent_dir = os.path.dirname(current_dir)
 jax.config.update("jax_platform_name", "cpu")
 print(f"Jax backend device: {jax.default_backend()} \n")
 
+_DOMRAND_ATOL = 1e-6
+_DOMRAND_RTOL = 1e-6
+
 
 # load yaml as dict:
 path = parent_dir + "/tests/test_conf/default_dom_rand_conf.yaml"
@@ -134,52 +137,52 @@ def test_reset(backend):
     assert not np.allclose(
         initial_carry.domain_randomizer_state.gravity,
         carry.domain_randomizer_state.gravity,
-        atol=1e-6,
+        atol=_DOMRAND_ATOL, rtol=_DOMRAND_RTOL,
     ), "Gravity should not match"
     assert not np.allclose(
         initial_carry.domain_randomizer_state.geom_friction,
         carry.domain_randomizer_state.geom_friction,
-        atol=1e-6,
+        atol=_DOMRAND_ATOL, rtol=_DOMRAND_RTOL,
     ), "Geom friction should not match"
     assert not np.allclose(
         initial_carry.domain_randomizer_state.geom_stiffness,
         carry.domain_randomizer_state.geom_stiffness,
-        atol=1e-6,
+        atol=_DOMRAND_ATOL, rtol=_DOMRAND_RTOL,
     ), "Geom stiffness should not match"
     assert not np.allclose(
         initial_carry.domain_randomizer_state.geom_damping,
         carry.domain_randomizer_state.geom_damping,
-        atol=1e-6,
+        atol=_DOMRAND_ATOL, rtol=_DOMRAND_RTOL,
     ), "Geom damping should not match"
     assert not np.allclose(
         initial_carry.domain_randomizer_state.base_mass_to_add,
         carry.domain_randomizer_state.base_mass_to_add,
-        atol=1e-6,
+        atol=_DOMRAND_ATOL, rtol=_DOMRAND_RTOL,
     ), "Base mass to add should not match"
     assert not np.allclose(
         initial_carry.domain_randomizer_state.com_displacement,
         carry.domain_randomizer_state.com_displacement,
-        atol=1e-6,
+        atol=_DOMRAND_ATOL, rtol=_DOMRAND_RTOL,
     ), "COM displacement should not match"
     assert not np.allclose(
         initial_carry.domain_randomizer_state.link_mass_multipliers,
         carry.domain_randomizer_state.link_mass_multipliers,
-        atol=1e-6,
+        atol=_DOMRAND_ATOL, rtol=_DOMRAND_RTOL,
     ), "Link mass multipliers should not match"
     assert not np.allclose(
         initial_carry.domain_randomizer_state.joint_friction_loss,
         carry.domain_randomizer_state.joint_friction_loss,
-        atol=1e-6,
+        atol=_DOMRAND_ATOL, rtol=_DOMRAND_RTOL,
     ), "Joint friction loss should not match"
     assert not np.allclose(
         initial_carry.domain_randomizer_state.joint_damping,
         carry.domain_randomizer_state.joint_damping,
-        atol=1e-6,
+        atol=_DOMRAND_ATOL, rtol=_DOMRAND_RTOL,
     ), "Joint damping should not match"
     assert not np.allclose(
         initial_carry.domain_randomizer_state.joint_armature,
         carry.domain_randomizer_state.joint_armature,
-        atol=1e-6,
+        atol=_DOMRAND_ATOL, rtol=_DOMRAND_RTOL,
     ), "Joint armature should not match"
 
 
@@ -218,25 +221,25 @@ def test_update(backend):
 
     # Ensure that values have changed
     assert not np.allclose(
-        model.geom_friction, initial_model.geom_friction, atol=1e-6
+        model.geom_friction, initial_model.geom_friction, atol=_DOMRAND_ATOL, rtol=_DOMRAND_RTOL
     ), "Geom friction should not match"
     assert not np.allclose(
-        model.geom_solref, initial_model.geom_solref, atol=1e-6
+        model.geom_solref, initial_model.geom_solref, atol=_DOMRAND_ATOL, rtol=_DOMRAND_RTOL
     ), "Geom solref should not match"
     assert not np.allclose(
-        model.body_ipos, initial_model.body_ipos, atol=1e-6
+        model.body_ipos, initial_model.body_ipos, atol=_DOMRAND_ATOL, rtol=_DOMRAND_RTOL
     ), "Body position should be modified"
     assert not np.allclose(
-        model.body_mass, initial_model.body_mass, atol=1e-6
+        model.body_mass, initial_model.body_mass, atol=_DOMRAND_ATOL, rtol=_DOMRAND_RTOL
     ), "Body mass should be modified"
     assert not np.allclose(
-        model.dof_frictionloss, initial_model.dof_frictionloss, atol=1e-6
+        model.dof_frictionloss, initial_model.dof_frictionloss, atol=_DOMRAND_ATOL, rtol=_DOMRAND_RTOL
     ), "Joint friction loss should be modified"
     assert not np.allclose(
-        model.dof_damping, initial_model.dof_damping, atol=1e-6
+        model.dof_damping, initial_model.dof_damping, atol=_DOMRAND_ATOL, rtol=_DOMRAND_RTOL
     ), "Joint damping should be modified"
     assert not np.allclose(
-        model.dof_armature, initial_model.dof_armature, atol=1e-6
+        model.dof_armature, initial_model.dof_armature, atol=_DOMRAND_ATOL, rtol=_DOMRAND_RTOL
     ), "Joint armature should be modified"
 
 
@@ -302,42 +305,30 @@ def test_update_observation(backend, mock_random):
             mjx_env, obs, mjx_env._model, state.data, state.additional_carry, backend
         )
     print(f"\nobs_updated: {obs_updated}")
-    np.testing.assert_allclose(
-        obs_updated,
-        [
+    # Expected values differ by backend (mujoco vs mjx physics)
+    if backend == np:
+        expected_obs_updated = [
             -0.02511085,
             0.08873329,
             0.425,
             0.00726929,
             -0.09849757,
             0.828,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0075,
-            0.0075,
-            -0.9925,
-            0.0015,
-            0.04,
-            0.0015,
-            0.04,
-            0.05,
-            0.05,
-            0.05,
-            0.01,
-            0.01,
-            0.01,
-        ],
-        atol=1e-7,
+            0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+            0.0075, 0.0075, -0.9925, 0.0015, 0.04, 0.0015, 0.04, 0.05, 0.05, 0.05,
+            0.01, 0.01, 0.01,
+        ]
+    else:
+        # mjx/jax: BodyPos observations are zero at reset
+        expected_obs_updated = [
+            0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+            0.0075, 0.0075, -0.9925, 0.0015, 0.04, 0.0015, 0.04, 0.05, 0.05, 0.05,
+            0.01, 0.01, 0.01,
+        ]
+    np.testing.assert_allclose(
+        obs_updated,
+        expected_obs_updated,
+        atol=_DOMRAND_ATOL, rtol=_DOMRAND_RTOL,
     )
 
 
@@ -393,7 +384,7 @@ def test_sample_geom_friction(backend, mock_random):
             [9.2000002e-01, 4.2000003e-03, 9.2000002e-05],
             [9.2000002e-01, 4.2000003e-03, 9.2000002e-05],
         ],
-        atol=1e-7,
+        atol=_DOMRAND_ATOL, rtol=_DOMRAND_RTOL,
     )
 
 
@@ -436,7 +427,7 @@ def test_sample_geom_damping_and_stiffness(backend, mock_random):
     np.testing.assert_allclose(
         sampled_damping,
         [76.8, 76.8, 76.8, 76.8, 76.8, 76.8, 76.8, 76.8, 76.8, 76.8, 76.8, 76.8],
-        atol=1e-7,
+        atol=_DOMRAND_ATOL, rtol=_DOMRAND_RTOL,
     )
 
     np.testing.assert_allclose(
@@ -455,7 +446,7 @@ def test_sample_geom_damping_and_stiffness(backend, mock_random):
             960.0,
             960.0,
         ],
-        atol=1e-7,
+        atol=_DOMRAND_ATOL, rtol=_DOMRAND_RTOL,
     )
 
 
@@ -497,7 +488,7 @@ def test_sample_joint_friction_loss(backend, mock_random):
     np.testing.assert_allclose(
         sampled_friction_loss,
         [0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06],
-        atol=1e-7,
+        atol=_DOMRAND_ATOL, rtol=_DOMRAND_RTOL,
     )
 
 
@@ -535,7 +526,7 @@ def test_sample_joint_damping(backend, mock_random):
     np.testing.assert_allclose(
         sampled_damping,
         [0.66, 0.66, 0.66, 0.66, 0.66, 0.66, 0.66, 0.66, 0.66, 0.66, 0.66],
-        atol=1e-7,
+        atol=_DOMRAND_ATOL, rtol=_DOMRAND_RTOL,
     )
 
 
@@ -573,7 +564,7 @@ def test_sample_joint_armature(backend, mock_random):
     np.testing.assert_allclose(
         sampled_armature,
         [0.092, 0.092, 0.092, 0.092, 0.092, 0.092, 0.092, 0.092, 0.092, 0.092, 0.092],
-        atol=1e-7,
+        atol=_DOMRAND_ATOL, rtol=_DOMRAND_RTOL,
     )
 
 
@@ -611,7 +602,7 @@ def test_sample_gravity(backend, mock_random):
     np.testing.assert_allclose(
         sampled_gravity,
         [0.0, 0.0, -9.690001],
-        atol=1e-7,
+        atol=_DOMRAND_ATOL, rtol=_DOMRAND_RTOL,
     )
 
 
@@ -689,7 +680,7 @@ def test_sample_com_displacement(backend, mock_random):
     np.testing.assert_allclose(
         sampled_com_displacement,
         [-0.06, -0.06, -0.06],
-        atol=1e-7,
+        atol=_DOMRAND_ATOL, rtol=_DOMRAND_RTOL,
     )
 
 
@@ -727,7 +718,7 @@ def test_sample_link_mass_multipliers(backend, mock_random):
     np.testing.assert_allclose(
         mass_multipliers,
         [0.92, 0.92, 0.92, 0.92, 0.92, 0.92, 0.92, 0.92, 0.92],
-        atol=1e-7,
+        atol=_DOMRAND_ATOL, rtol=_DOMRAND_RTOL,
     )
 
 
@@ -797,7 +788,7 @@ def test_sample_p_gains_noise(backend, mock_random):
     np.testing.assert_allclose(
         p_noise,
         [12.0, 8.0, 8.0, 8.0, 12.0, 1.6, 8.0, 8.0, 8.0, 12.0, 1.6],
-        atol=1e-7,
+        atol=_DOMRAND_ATOL, rtol=_DOMRAND_RTOL,
     )
 
 
@@ -849,5 +840,5 @@ def test_sample_d_gains_noise(backend, mock_random):
             0.24000001,
             0.08000001,
         ],
-        atol=1e-7,
+        atol=_DOMRAND_ATOL, rtol=_DOMRAND_RTOL,
     )

@@ -21,6 +21,9 @@ from test_conf import *
 jax.config.update('jax_platform_name', 'cpu')
 print(f"Jax backend device: {jax.default_backend()} \n")
 
+_TRAJ_ATOL = 1e-7
+_TRAJ_RTOL = 1e-7
+
 
 @pytest.mark.parametrize("backend", ["jax", "numpy"])
 def test_trajectory_info_save_and_load(
@@ -52,69 +55,73 @@ def test_trajectory_info_save_and_load(
     assert trajectory.info.model.nsite == info.model.nsite
 
     np.testing.assert_allclose(
-        trajectory.info.model.jnt_type, info.model.jnt_type, atol=1e-7
+        trajectory.info.model.jnt_type, info.model.jnt_type, atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL
     )
     np.testing.assert_allclose(
-        trajectory.info.model.body_rootid, info.model.body_rootid
+        trajectory.info.model.body_rootid, info.model.body_rootid,
+        atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL,
     )
     np.testing.assert_allclose(
-        trajectory.info.model.body_weldid, info.model.body_weldid
+        trajectory.info.model.body_weldid, info.model.body_weldid,
+        atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL,
     )
     np.testing.assert_allclose(
-        trajectory.info.model.body_mocapid, info.model.body_mocapid
+        trajectory.info.model.body_mocapid, info.model.body_mocapid,
+        atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL,
     )
     np.testing.assert_allclose(
-        trajectory.info.model.site_bodyid, info.model.site_bodyid
+        trajectory.info.model.site_bodyid, info.model.site_bodyid,
+        atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL,
     )
     np.testing.assert_allclose(
-        trajectory.info.model.body_pos, info.model.body_pos, atol=1e-7
+        trajectory.info.model.body_pos, info.model.body_pos, atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL
     )
     np.testing.assert_allclose(
-        trajectory.info.model.body_quat, info.model.body_quat, atol=1e-7
+        trajectory.info.model.body_quat, info.model.body_quat, atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL
     )
     np.testing.assert_allclose(
-        trajectory.info.model.body_ipos, info.model.body_ipos, atol=1e-7
+        trajectory.info.model.body_ipos, info.model.body_ipos, atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL
     )
     np.testing.assert_allclose(
-        trajectory.info.model.body_iquat, info.model.body_iquat, atol=1e-7
+        trajectory.info.model.body_iquat, info.model.body_iquat, atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL
     )
     np.testing.assert_allclose(
-        trajectory.info.model.site_pos, info.model.site_pos, atol=1e-7
+        trajectory.info.model.site_pos, info.model.site_pos, atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL
     )
     np.testing.assert_allclose(
-        trajectory.info.model.site_quat, info.model.site_quat, atol=1e-7
+        trajectory.info.model.site_quat, info.model.site_quat, atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL
     )
 
     # data test
-    np.testing.assert_allclose(trajectory.data.qpos, data.qpos, atol=1e-7)
-    np.testing.assert_allclose(trajectory.data.qvel, data.qvel, atol=1e-7)
-    np.testing.assert_allclose(trajectory.data.xpos, data.xpos, atol=1e-7)
-    np.testing.assert_allclose(trajectory.data.xquat, data.xquat, atol=1e-7)
-    np.testing.assert_allclose(trajectory.data.cvel, data.cvel, atol=1e-7)
-    np.testing.assert_allclose(trajectory.data.subtree_com, data.subtree_com, atol=1e-7)
-    np.testing.assert_allclose(trajectory.data.site_xpos, data.site_xpos, atol=1e-7)
-    np.testing.assert_allclose(trajectory.data.site_xmat, data.site_xmat, atol=1e-7)
+    np.testing.assert_allclose(trajectory.data.qpos, data.qpos, atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL)
+    np.testing.assert_allclose(trajectory.data.qvel, data.qvel, atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL)
+    np.testing.assert_allclose(trajectory.data.xpos, data.xpos, atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL)
+    np.testing.assert_allclose(trajectory.data.xquat, data.xquat, atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL)
+    np.testing.assert_allclose(trajectory.data.cvel, data.cvel, atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL)
+    np.testing.assert_allclose(trajectory.data.subtree_com, data.subtree_com, atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL)
+    np.testing.assert_allclose(trajectory.data.site_xpos, data.site_xpos, atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL)
+    np.testing.assert_allclose(trajectory.data.site_xmat, data.site_xmat, atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL)
 
     # transition tests
     np.testing.assert_allclose(
-        trajectory.transitions.observations, transitions.observations, atol=1e-7
+        trajectory.transitions.observations, transitions.observations, atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL
     )
     np.testing.assert_allclose(
         trajectory.transitions.next_observations,
         transitions.next_observations,
-        atol=1e-7,
+        atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL,
     )
     np.testing.assert_allclose(
-        trajectory.transitions.absorbings, transitions.absorbings, atol=1e-7
+        trajectory.transitions.absorbings, transitions.absorbings, atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL
     )
     np.testing.assert_allclose(
-        trajectory.transitions.dones, transitions.dones, atol=1e-7
+        trajectory.transitions.dones, transitions.dones, atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL
     )
     np.testing.assert_allclose(
-        trajectory.transitions.actions, transitions.actions, atol=1e-7
+        trajectory.transitions.actions, transitions.actions, atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL
     )
     np.testing.assert_allclose(
-        trajectory.transitions.rewards, transitions.rewards, atol=1e-7
+        trajectory.transitions.rewards, transitions.rewards, atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL
     )
 
 
@@ -403,17 +410,17 @@ def test_trajectory_info_reorder_bodies(backend, input_trajectory_info_data):
     np.testing.assert_allclose(
         trajectoryInfo.model.body_rootid,
         backend_type.array([1, 0, 1, 1, 1, 1, 1, 1, 1, 1]),
-        atol=1e-7,
+        atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL,
     )
     np.testing.assert_allclose(
         trajectoryInfo.model.body_weldid,
         backend_type.array([1, 0, 2, 3, 4, 5, 5, 7, 8, 8]),
-        atol=1e-7,
+        atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL,
     )
     np.testing.assert_allclose(
         trajectoryInfo.model.body_mocapid,
         backend_type.array([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1]),
-        atol=1e-7,
+        atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL,
     )
     np.testing.assert_allclose(
         trajectoryInfo.model.body_pos,
@@ -431,7 +438,7 @@ def test_trajectory_info_reorder_bodies(backend, input_trajectory_info_data):
                 [0.0, 0.0, -0.45],
             ]
         ),
-        atol=1e-7,
+        atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL,
     )
     np.testing.assert_allclose(
         trajectoryInfo.model.body_quat,
@@ -454,7 +461,7 @@ def test_trajectory_info_reorder_bodies(backend, input_trajectory_info_data):
                 [1, 0, 0, 0],
             ]
         ),
-        atol=1e-7,
+        atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL,
     )
     np.testing.assert_allclose(
         trajectoryInfo.model.body_ipos,
@@ -472,7 +479,7 @@ def test_trajectory_info_reorder_bodies(backend, input_trajectory_info_data):
                 [0.0, 0.0, 0.1],
             ]
         ),
-        atol=1e-7,
+        atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL,
     )
     np.testing.assert_allclose(
         trajectoryInfo.model.body_iquat,
@@ -490,7 +497,7 @@ def test_trajectory_info_reorder_bodies(backend, input_trajectory_info_data):
                 [1.0, 0.0, 0.0, 0.0],
             ]
         ),
-        atol=1e-7,
+        atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL,
     )
 
 
@@ -522,7 +529,7 @@ def test_trajectory_info_reorder_sites(backend, input_trajectory_info_data):
                 [0.0, 0.0, 0.1],
             ]
         ),
-        atol=1e-7,
+        atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL,
     )
     np.testing.assert_allclose(
         trajectoryInfo.model.site_quat,
@@ -678,14 +685,14 @@ def test_trajectory_data_get(
         else backend_type.empty(0)
     )
 
-    np.testing.assert_allclose(data.qpos, expected_qpos, atol=1e-7)
-    np.testing.assert_allclose(data.qvel, expected_qvel, atol=1e-7)
-    np.testing.assert_allclose(data.xpos, expected_xpos, atol=1e-7)
-    np.testing.assert_allclose(data.xquat, expected_xquat, atol=1e-7)
-    np.testing.assert_allclose(data.cvel, expected_cvel, atol=1e-7)
-    np.testing.assert_allclose(data.subtree_com, expected_subtree_com, atol=1e-7)
-    np.testing.assert_allclose(data.site_xpos, expected_site_xpos, atol=1e-7)
-    np.testing.assert_allclose(data.site_xmat, expected_site_xmat, atol=1e-7)
+    np.testing.assert_allclose(data.qpos, expected_qpos, atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL)
+    np.testing.assert_allclose(data.qvel, expected_qvel, atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL)
+    np.testing.assert_allclose(data.xpos, expected_xpos, atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL)
+    np.testing.assert_allclose(data.xquat, expected_xquat, atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL)
+    np.testing.assert_allclose(data.cvel, expected_cvel, atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL)
+    np.testing.assert_allclose(data.subtree_com, expected_subtree_com, atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL)
+    np.testing.assert_allclose(data.site_xpos, expected_site_xpos, atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL)
+    np.testing.assert_allclose(data.site_xmat, expected_site_xmat, atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL)
 
 
 @pytest.mark.parametrize("backend", ["jax", "numpy"])
@@ -711,12 +718,12 @@ def test_dynamic_slice_in_dim(
     expected_qpos = backend_type.squeeze(
         trajectory_data.qpos[sub_traj_start_index : sub_traj_start_index + slice_length]
     )
-    np.testing.assert_allclose(sliced_data.qpos, expected_qpos, atol=1e-7)
+    np.testing.assert_allclose(sliced_data.qpos, expected_qpos, atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL)
 
     expected_qvel = backend_type.squeeze(
         trajectory_data.qvel[sub_traj_start_index : sub_traj_start_index + slice_length]
     )
-    np.testing.assert_allclose(sliced_data.qvel, expected_qvel, atol=1e-7)
+    np.testing.assert_allclose(sliced_data.qvel, expected_qvel, atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL)
 
     if trajectory_data.xpos.size > 0:
         expected_xpos = backend_type.squeeze(
@@ -724,7 +731,7 @@ def test_dynamic_slice_in_dim(
                 sub_traj_start_index : sub_traj_start_index + slice_length
             ]
         )
-        np.testing.assert_allclose(sliced_data.xpos, expected_xpos, atol=1e-7)
+        np.testing.assert_allclose(sliced_data.xpos, expected_xpos, atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL)
 
     if trajectory_data.xquat.size > 0:
         expected_xquat = backend_type.squeeze(
@@ -732,7 +739,7 @@ def test_dynamic_slice_in_dim(
                 sub_traj_start_index : sub_traj_start_index + slice_length
             ]
         )
-        np.testing.assert_allclose(sliced_data.xquat, expected_xquat, atol=1e-7)
+        np.testing.assert_allclose(sliced_data.xquat, expected_xquat, atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL)
 
     if trajectory_data.cvel.size > 0:
         expected_cvel = backend_type.squeeze(
@@ -740,7 +747,7 @@ def test_dynamic_slice_in_dim(
                 sub_traj_start_index : sub_traj_start_index + slice_length
             ]
         )
-        np.testing.assert_allclose(sliced_data.cvel, expected_cvel, atol=1e-7)
+        np.testing.assert_allclose(sliced_data.cvel, expected_cvel, atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL)
 
     if trajectory_data.subtree_com.size > 0:
         expected_subtree_com = backend_type.squeeze(
@@ -749,7 +756,7 @@ def test_dynamic_slice_in_dim(
             ]
         )
         np.testing.assert_allclose(
-            sliced_data.subtree_com, expected_subtree_com, atol=1e-7
+            sliced_data.subtree_com, expected_subtree_com, atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL
         )
 
     if trajectory_data.site_xpos.size > 0:
@@ -758,7 +765,7 @@ def test_dynamic_slice_in_dim(
                 sub_traj_start_index : sub_traj_start_index + slice_length
             ]
         )
-        np.testing.assert_allclose(sliced_data.site_xpos, expected_site_xpos, atol=1e-7)
+        np.testing.assert_allclose(sliced_data.site_xpos, expected_site_xpos, atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL)
 
     if trajectory_data.site_xmat.size > 0:
         expected_site_xmat = backend_type.squeeze(
@@ -766,7 +773,7 @@ def test_dynamic_slice_in_dim(
                 sub_traj_start_index : sub_traj_start_index + slice_length
             ]
         )
-        np.testing.assert_allclose(sliced_data.site_xmat, expected_site_xmat, atol=1e-7)
+        np.testing.assert_allclose(sliced_data.site_xmat, expected_site_xmat, atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL)
 
 
 @pytest.mark.parametrize("backend", ["jax", "numpy"])
@@ -787,7 +794,7 @@ def test_dynamic_slice_in_dim_compat(backend, input_trajectory_data):
     else:
         expected_slice = trajectory_data.qpos[start : start + length].copy()
 
-    np.testing.assert_allclose(sliced_data, expected_slice, atol=1e-7)
+    np.testing.assert_allclose(sliced_data, expected_slice, atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL)
 
 
 @pytest.mark.parametrize("backend", ["jax", "numpy"])
@@ -838,7 +845,7 @@ def test_dynamic_slice_in_dim_single(backend, input_trajectory_data):
             slice_start : slice_start + slice_length
         ].copy()
 
-    np.testing.assert_allclose(slice, expected_slice, atol=1e-7)
+    np.testing.assert_allclose(slice, expected_slice, atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL)
 
 
 @pytest.mark.parametrize("backend", ["jax", "numpy"])
@@ -866,7 +873,7 @@ def test_trajectory_data_add_joint(backend, input_trajectory_data):
     np.testing.assert_allclose(
         updated_trajectory_data.qpos[:, -1],
         backend_type.full((original_qpos_shape[0],), new_qpos_value),
-        atol=1e-7,
+        atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL,
     )
     np.testing.assert_allclose(
         updated_trajectory_data.qvel[:, -1],
@@ -923,17 +930,17 @@ def test_trajectory_data_add_body(backend, input_trajectory_data):
     np.testing.assert_allclose(
         updated_trajectory_data.xpos[:, -1, :],
         backend_type.full((original_xpos_shape[0], 3), new_xpos_value),
-        atol=1e-7,
+        atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL,
     )
     np.testing.assert_allclose(
         updated_trajectory_data.cvel[:, -1, :],
         backend_type.full((original_cvel_shape[0], 6), new_cvel_value),
-        atol=1e-7,
+        atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL,
     )
     np.testing.assert_allclose(
         updated_trajectory_data.subtree_com[:, -1, :],
         backend_type.full((original_subtree_com_shape[0], 3), new_subtree_com_value),
-        atol=1e-7,
+        atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL,
     )
 
 
@@ -969,7 +976,7 @@ def test_trajectory_data_add_site(backend, input_trajectory_data):
     np.testing.assert_allclose(
         updated_trajectory_data.site_xpos[:, -1, :],
         backend_type.full((original_site_xpos_shape[0], 3), new_site_xpos_value),
-        atol=1e-7,
+        atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL,
     )
 
 
@@ -1179,12 +1186,12 @@ def test_trajectory_data_reorder_joints(backend, input_trajectory_data):
     np.testing.assert_allclose(
         updated_trajectory_data.qpos[:, qpos_ind],
         trajectory_data.qpos[:, new_order_qpos[qpos_ind]],
-        atol=1e-7,
+        atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL,
     )
     np.testing.assert_allclose(
         updated_trajectory_data.qvel[:, qvel_ind],
         trajectory_data.qvel[:, new_order_qvel[qvel_ind]],
-        atol=1e-7,
+        atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL,
     )
 
 
@@ -1202,22 +1209,22 @@ def test_trajectory_data_reorder_bodies(backend, input_trajectory_data):
     np.testing.assert_allclose(
         updated_trajectory_data.xpos[:, body_ind],
         trajectory_data.xpos[:, new_order[body_ind]],
-        atol=1e-7,
+        atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL,
     )
     np.testing.assert_allclose(
         updated_trajectory_data.xquat[:, body_ind],
         trajectory_data.xquat[:, new_order[body_ind]],
-        atol=1e-7,
+        atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL,
     )
     np.testing.assert_allclose(
         updated_trajectory_data.cvel[:, body_ind],
         trajectory_data.cvel[:, new_order[body_ind]],
-        atol=1e-7,
+        atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL,
     )
     np.testing.assert_allclose(
         updated_trajectory_data.subtree_com[:, body_ind],
         trajectory_data.subtree_com[:, new_order[body_ind]],
-        atol=1e-7,
+        atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL,
     )
 
 
@@ -1237,13 +1244,13 @@ def test_trajectory_data_reorder_sites(backend, input_trajectory_data):
     np.testing.assert_allclose(
         updated_trajectory_data.site_xpos[:, site_ind],
         trajectory_data.site_xpos[:, new_order[site_ind]],
-        atol=1e-7,
+        atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL,
     )
 
     np.testing.assert_allclose(
         updated_trajectory_data.site_xmat[:, site_ind],
         trajectory_data.site_xmat[:, new_order[site_ind]],
-        atol=1e-7,
+        atol=_TRAJ_ATOL, rtol=_TRAJ_RTOL,
     )
 
 

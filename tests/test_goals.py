@@ -16,6 +16,9 @@ DEFAULTS = {"horizon": 1000, "gamma": 0.99, "n_envs": 1}
 jax.config.update('jax_platform_name', 'cpu')
 print(f"Jax backend device: {jax.default_backend()} \n")
 
+_GOAL_ATOL = 1e-7
+_GOAL_RTOL = 1e-7
+
 
 @pytest.mark.parametrize("backend", ["jax", "numpy"])
 def test_NoGoal(backend):
@@ -90,6 +93,8 @@ def test_GoalRandomRootVelocity(backend):
         obs,
         goal,
         err_msg="Mismatch between Mujoco observation and goal",
+        atol=_GOAL_ATOL,
+        rtol=_GOAL_RTOL,
     )
 
     data, carry = current_goal.reset_state(
@@ -110,6 +115,8 @@ def test_GoalRandomRootVelocity(backend):
         obs,
         goal,
         err_msg="Mismatch between Mujoco observation and goal",
+        atol=_GOAL_ATOL,
+        rtol=_GOAL_RTOL,
     )
 
 
@@ -181,6 +188,8 @@ def test_GoalTrajRootVelocity(backend, standing_trajectory):
         obs,
         goal,
         err_msg="Mismatch between Mujoco observation and goal",
+        atol=_GOAL_ATOL,
+        rtol=_GOAL_RTOL,
     )
 
 
@@ -225,5 +234,6 @@ def test_GoalTrajMimic(backend, standing_trajectory):
 
     # check the observation
     np.testing.assert_allclose(
-        obs, goal, err_msg="Mismatch between Mujoco observation and goal", atol=1e-7
+        obs, goal, err_msg="Mismatch between Mujoco observation and goal",
+        atol=_GOAL_ATOL, rtol=_GOAL_RTOL,
     )

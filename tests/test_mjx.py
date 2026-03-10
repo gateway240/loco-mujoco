@@ -18,8 +18,7 @@ def test_mjx_simto_mujoco():
     Test whether the Mjx simulation is equal/similar to the Mujoco simulation.
     """
 
-    # tolerance for difference between MuJoCo and MJX forward calculations - mostly
-    # due to float precision
+    # tolerance for difference between MuJoCo and MJX forward calculations
     _TOLERANCE = 1e-4
 
     # set Jax-backend to CPU
@@ -64,7 +63,7 @@ def test_mjx_simto_mujoco():
                                   atol=_TOLERANCE, rtol=_TOLERANCE)
 
         # check qvel
-        _QVEL_TOLERANCE = _TOLERANCE * 10   # velocities are higher in magnitude
+        _QVEL_TOLERANCE = _TOLERANCE * 10  # velocities are higher in magnitude
         assert jax.numpy.allclose(obs[:, :, qvel_idx], mjx_obs[:, :, qvel_idx],
                                   atol=_QVEL_TOLERANCE, rtol=_QVEL_TOLERANCE)
         assert jax.numpy.allclose(next_obs[:, :, qvel_idx], mjx_next_obs[:, :, qvel_idx],

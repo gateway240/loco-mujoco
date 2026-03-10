@@ -21,6 +21,8 @@ from test_conf import DummyHumamoidEnv
 jax.config.update('jax_platform_name', 'cpu')
 print(f"Jax backend device: {jax.default_backend()} \n")
 
+_OBS_ATOL = 1e-6
+_OBS_RTOL = 1e-6
 
 DEFAULTS = {"horizon": 1000, "gamma": 0.99, "n_envs": 1}
 
@@ -98,6 +100,8 @@ def test_BodyPos(backend):
             obs,
             gt_obs_mujoco,
             err_msg="Mismatch between Mujoco observation and ground truth",
+            atol=_OBS_ATOL,
+            rtol=_OBS_RTOL,
         )
     else:
         # get the body position from Mjx
@@ -110,6 +114,8 @@ def test_BodyPos(backend):
             obs_mjx,
             gt_obs_mjx,
             err_msg="Mismatch between Mujoco observation and ground truth",
+            atol=_OBS_ATOL,
+            rtol=_OBS_RTOL,
         )
 
 
@@ -170,6 +176,8 @@ def test_BodyRot(backend):
             obs,
             gt_obs_mujoco,
             err_msg="Mismatch between Mujoco observation and ground truth",
+            atol=_OBS_ATOL,
+            rtol=_OBS_RTOL,
         )
     else:
         # get the body xquat from Mjx
@@ -182,6 +190,8 @@ def test_BodyRot(backend):
             obs_mjx,
             gt_obs_mjx,
             err_msg="Mismatch between Mujoco observation and ground truth",
+            atol=_OBS_ATOL,
+            rtol=_OBS_RTOL,
         )
 
 
@@ -242,6 +252,8 @@ def test_BodyVel(backend):
             obs,
             gt_obs_mujoco,
             err_msg="Mismatch between Mujoco observation and ground truth",
+            atol=_OBS_ATOL,
+            rtol=_OBS_RTOL,
         )
     else:
         # get the body cvel from Mjx
@@ -254,6 +266,8 @@ def test_BodyVel(backend):
             obs_mjx,
             gt_obs_mjx,
             err_msg="Mismatch between Mujoco observation and ground truth",
+            atol=_OBS_ATOL,
+            rtol=_OBS_RTOL,
         )
 
 
@@ -307,6 +321,8 @@ def test_FreeJointPos(backend):
             obs,
             gt_joint_pos,
             err_msg="Mismatch between Mujoco observation and ground truth",
+            atol=_OBS_ATOL,
+            rtol=_OBS_RTOL,
         )
     else:
         # get the joint pos from Mjx
@@ -317,6 +333,8 @@ def test_FreeJointPos(backend):
             obs_mjx,
             gt_joint_pos,
             err_msg="Mismatch between Mujoco observation and ground truth",
+            atol=_OBS_ATOL,
+            rtol=_OBS_RTOL,
         )
 
 
@@ -374,6 +392,8 @@ def test_EntryFromFreeJointPos(backend):
             obs,
             gt_joint_qpos,
             err_msg="Mismatch between Mujoco observation and ground truth",
+            atol=_OBS_ATOL,
+            rtol=_OBS_RTOL,
         )
     else:
         # get the joint position from Mjx
@@ -383,6 +403,8 @@ def test_EntryFromFreeJointPos(backend):
             obs_mjx,
             gt_joint_qpos,
             err_msg="Mismatch between Mjx observation and ground truth",
+            atol=_OBS_ATOL,
+            rtol=_OBS_RTOL,
         )
 
 
@@ -434,6 +456,8 @@ def test_FreeJointPosNoXY(backend):
             obs,
             gt_joint_qpos,
             err_msg="Mismatch between Mujoco observation and ground truth",
+            atol=_OBS_ATOL,
+            rtol=_OBS_RTOL,
         )
     else:
         # get the joint position from Mjx
@@ -443,6 +467,8 @@ def test_FreeJointPosNoXY(backend):
             obs_mjx,
             gt_joint_qpos,
             err_msg="Mismatch between Mjx observation and ground truth",
+            atol=_OBS_ATOL,
+            rtol=_OBS_RTOL,
         )
 
 
@@ -500,6 +526,8 @@ def test_JointPos(backend):
             obs,
             gt_joint_qpos,
             err_msg="Mismatch between Mujoco observation and ground truth",
+            atol=_OBS_ATOL,
+            rtol=_OBS_RTOL,
         )
     else:
         # get the joint position from Mjx
@@ -511,6 +539,8 @@ def test_JointPos(backend):
             obs_mjx,
             gt_joint_qpos,
             err_msg="Mismatch between Mjx observation and ground truth",
+            atol=_OBS_ATOL,
+            rtol=_OBS_RTOL,
         )
 
 
@@ -570,6 +600,8 @@ def test_JointPosArray(backend):
             obs,
             gt_joint_qpos,
             err_msg="Mismatch between Mujoco observation and ground truth",
+            atol=_OBS_ATOL,
+            rtol=_OBS_RTOL,
         )
     else:
         # get the joint position from Mjx
@@ -581,6 +613,8 @@ def test_JointPosArray(backend):
             obs_mjx,
             gt_joint_qpos,
             err_msg="Mismatch between Mjx observation and ground truth",
+            atol=_OBS_ATOL,
+            rtol=_OBS_RTOL,
         )
 
 
@@ -632,6 +666,8 @@ def test_FreeJointVel(backend):
             obs,
             gt_joint_qvel,
             err_msg="Mismatch between Mujoco observation and ground truth",
+            atol=_OBS_ATOL,
+            rtol=_OBS_RTOL,
         )
     else:
         # get qvel from Mjx
@@ -641,6 +677,8 @@ def test_FreeJointVel(backend):
             obs_mjx,
             gt_joint_qvel,
             err_msg="Mismatch between Mjx observation and ground truth",
+            atol=_OBS_ATOL,
+            rtol=_OBS_RTOL,
         )
 
 
@@ -697,6 +735,8 @@ def test_EntryFromFreeJointVel(backend):
             obs,
             gt_joint_qvel,
             err_msg="Mismatch between Mujoco observation and ground truth",
+            atol=_OBS_ATOL,
+            rtol=_OBS_RTOL,
         )
     else:
         # get qvel from Mjx
@@ -706,6 +746,8 @@ def test_EntryFromFreeJointVel(backend):
             obs_mjx,
             gt_joint_qvel,
             err_msg="Mismatch between Mjx observation and ground truth",
+            atol=_OBS_ATOL,
+            rtol=_OBS_RTOL,
         )
 
 
@@ -771,6 +813,8 @@ def test_JointVel(backend):
             obs,
             gt_joint_qvel,
             err_msg="Mismatch between Mujoco observation and ground truth",
+            atol=_OBS_ATOL,
+            rtol=_OBS_RTOL,
         )
     else:
         # get the joint position from Mjx
@@ -782,6 +826,8 @@ def test_JointVel(backend):
             obs_mjx,
             gt_joint_qvel,
             err_msg="Mismatch between Mjx observation and ground truth",
+            atol=_OBS_ATOL,
+            rtol=_OBS_RTOL,
         )
 
 
@@ -839,6 +885,8 @@ def test_JointVelArray(backend):
             obs,
             gt_joint_qvel,
             err_msg="Mismatch between Mujoco observation and ground truth",
+            atol=_OBS_ATOL,
+            rtol=_OBS_RTOL,
         )
     else:
         joint_qvel1 = jnp.array([state.data.qvel[joint_ids[0]]])
@@ -849,6 +897,8 @@ def test_JointVelArray(backend):
             obs_mjx,
             gt_joint_qvel,
             err_msg="Mismatch between Mjx observation and ground truth",
+            atol=_OBS_ATOL,
+            rtol=_OBS_RTOL,
         )
 
 
@@ -907,6 +957,8 @@ def test_SitePos(backend):
             obs,
             gt_site_xpos,
             err_msg="Mismatch between Mujoco observation and ground truth",
+            atol=_OBS_ATOL,
+            rtol=_OBS_RTOL,
         )
     else:
         # get the site position from Mjx
@@ -918,6 +970,8 @@ def test_SitePos(backend):
             obs_mjx,
             gt_site_xpos,
             err_msg="Mismatch between Mjx observation and ground truth",
+            atol=_OBS_ATOL,
+            rtol=_OBS_RTOL,
         )
 
 
@@ -982,6 +1036,8 @@ def test_SiteRot(backend):
             obs,
             gt_site_xmat,
             err_msg="Mismatch between Mujoco observation and ground truth",
+            atol=_OBS_ATOL,
+            rtol=_OBS_RTOL,
         )
     else:
         site_xmat1 = state.data.site_xmat[site_ids[0]]
@@ -994,6 +1050,8 @@ def test_SiteRot(backend):
             obs_mjx,
             gt_site_xmat,
             err_msg="Mismatch between Mjx observation and ground truth",
+            atol=_OBS_ATOL,
+            rtol=_OBS_RTOL,
         )
 
 
@@ -1051,6 +1109,8 @@ def test_ProjectedGravityVector(backend):
             obs,
             gt_proj_grav,
             err_msg="Mismatch between Mujoco observation and ground truth",
+            atol=_OBS_ATOL,
+            rtol=_OBS_RTOL,
         )
     else:
         quat = state.data.qpos[joint_id + 3 : joint_id + 7]
@@ -1062,6 +1122,8 @@ def test_ProjectedGravityVector(backend):
             obs_mjx,
             gt_proj_grav,
             err_msg="Mismatch between Mjx observation and ground truth",
+            atol=_OBS_ATOL,
+            rtol=_OBS_RTOL,
         )
 
 
@@ -1168,12 +1230,12 @@ def test_ModelInfo(backend):
     if backend == np:
         np.testing.assert_allclose(
             obs, expected_obs, err_msg="Mismatch between Mujoco observation and expected values",
-                                                                                        atol=1e-6
+                                                                                        atol=_OBS_ATOL, rtol=_OBS_RTOL
         )
     else:
         np.testing.assert_allclose(
             obs_mjx, expected_obs, err_msg="Mismatch between Mjx observation and expected values",
-                                                                                        atol=1e-6
+                                                                                        atol=_OBS_ATOL, rtol=_OBS_RTOL
         )
 
 
@@ -1233,10 +1295,10 @@ def test_RelativeSiteQuantaties(backend):
     if backend == np:
         np.testing.assert_allclose(
             obs, expected_obs, err_msg="Mismatch between Mujoco observation and expected values", 
-                                                                                        atol=1e-6
+                                                                                        atol=_OBS_ATOL, rtol=_OBS_RTOL
         )
     else:
         np.testing.assert_allclose(
             obs_mjx, expected_obs, err_msg="Mismatch between Mjx observation and expected values", 
-                                                                                        atol=1e-6
+                                                                                        atol=_OBS_ATOL, rtol=_OBS_RTOL
         )
