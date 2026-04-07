@@ -24,7 +24,7 @@ experiment:
     name: RLFactory
     params: {}
   env_params:
-    env_name: MjxUnitreeGo2
+    env_name: MjxMyoSkeleton
     horizon: 1000
     terminal_state_type: HeightBasedTerminalStateHandler
     goal_type: GoalRandomRootVelocity
@@ -64,7 +64,7 @@ experiment:
   anneal_lr: false
   weight_decay: 0.0
   normalize_env: true
-  debug: false
+  debug: true
   n_seeds: 1  # while automatically take seeds from 1 to n_seeds
   vmap_across_seeds: true
   validation:

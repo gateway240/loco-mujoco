@@ -25,3 +25,6 @@ data/
 loco_mujoco/LOCOMUJOCO_VARIABLES.yaml
 **/video2images.sh
 **/expert_traj.npz
+.venv
+smplh_model_conversion_env
+trajectory.npz

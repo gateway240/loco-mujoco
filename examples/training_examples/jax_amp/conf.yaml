@@ -12,8 +12,7 @@ experiment:
       default_dataset_conf:
           task: run
   env_params:
-    env_name: MjxUnitreeH1
-    disable_arms: false
+    env_name: MjxMyoSkeleton
     headless: True
     horizon: 1000
     goal_type: GoalTrajRootVelocity
