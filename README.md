@@ -58,7 +58,9 @@ Clone this repo and do an editable installation:
 
 ```bash
 cd loco-mujoco
-pip install -e . 
+uv venv --python 3.11
+source .venv/bin/activate
+uv pip install -e . 
 ```
 
 By default, both will install the CPU-version of Jax. If you want to use Jax on the GPU, you need to install the following:

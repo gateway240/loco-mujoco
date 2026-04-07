@@ -10,7 +10,7 @@ dependencies = [
     "mujoco-mjx>=3.5.0",
     "mujoco-warp>=3.5.0",
     "hydra-core",
-    "jax",
+    "jax[cuda12]",
     "flax",
     "orbax",
     "distrax",
