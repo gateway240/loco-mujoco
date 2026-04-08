@@ -26,7 +26,7 @@ experiment:
       default_dataset_conf:
           task: run
   env_params:
-    env_name: MjxUnitreeH1
+    env_name:  MjxMyoSkeleton
     headless: true
     disable_arms: false
     horizon: 1000

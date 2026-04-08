@@ -27,7 +27,7 @@ experiment:
         dataset_name:
           - walk1_subject5
   env_params:
-    env_name: MjxUnitreeH1
+    env_name:  MjxMyoSkeleton
     use_mjwarp: True
     nconmax: 7000
     headless: True
